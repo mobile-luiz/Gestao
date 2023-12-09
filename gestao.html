@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* Estilo para o corpo da página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Cor de fundo cinza claro */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Faz com que a página ocupe a altura total da janela */
+        }
+
+        /* Estilo para o título */
+        h1 {
+            font-size: 24px;
+            text-align: center; /* Centraliza o título */
+            color: #333; /* Cor do texto */
+            margin-bottom: 20px;
+        }
+
+        /* Estilo para o container das iframes */
+        .iframe-container {
+            display: flex; /* Usa flexbox para alinhar as iframes horizontalmente */
+            justify-content: space-between; /* Distribui espaço uniformemente entre as iframes */
+            width: 100%; /* Define a largura do container */
+            max-width: 1330px; /* Largura máxima para evitar que fique muito largo */
+        }
+
+        /* Estilo para as iframes */
+        iframe {
+            border: 1px solid #474646; /* Borda de 2px sólida com cor #333 */
+            border-radius: 10px; /* Cantos arredondados */
+            background-color: #fff; /* Fundo branco */
+            width: 48%; /* Define a largura das iframes */
+            height: 580px; /* Define a altura das iframes */
+        }
+
+
+       /* Estilo para o logotipo */
+.logo {
+    max-width: 70px; /* Largura máxima para o logotipo */
+    margin-top: 1px; /* Espaço superior para separar o logotipo do título */
+    position: absolute; /* Posição absoluta para definir a posição exata */
+    top: 1px; /* Distância do topo (10px, por exemplo) */
+    left: 1px; /* Distância da esquerda (10px, por exemplo) */
+}
+
+  /* Estilo para o parágrafo com id "currentDateTime" */
+  #currentDateTime {
+    display: block; /* Torna o elemento visível */
+    text-align: center; /* Centraliza o texto */
+    font-size: 18px; /* Tamanho da fonte */
+    color: #333; /* Cor do texto */
+    margin-top: -20px; /* Espaço superior para mover o texto para cima */
+}
+
+
+    </style>
+</head>
+<body>
+     <!-- Logotipo -->
+     <img class="logo" src="C:\Users\Luiz\Desktop\logo usina atual\usina_logo.png" alt="">
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+
+    <h1>Gestão à vista</h1>
+
+    <p id="currentDateTime"></p>
+
+    <script>
+        // Função para atualizar a data e hora atual a cada segundo
+        function atualizarDataHoraAtual() {
+            var currentDateTime = moment().format('DD/MM/YYYY HH:mm:ss');
+            document.getElementById("currentDateTime").innerText = "Data e hora atual: " + currentDateTime;
+        }
+
+        // Chamar a função para exibir a data e hora atual ao carregar a página
+        window.onload = function() {
+            atualizarDataHoraAtual(); // Chamar a função inicialmente
+
+            // Atualizar a cada segundo (1000 milissegundos)
+            setInterval(atualizarDataHoraAtual, 1000);
+        };
+    </script>
+
+    <!-- Container para as iframes -->
+    <div class="iframe-container">
+        <!-- Primeira iframe -->
+        <iframe src="file:///C:/Users/Luiz/Desktop/alocar3/grafico_real.html"></iframe>
+
+        <!-- Segunda iframe -->
+        <iframe src="file:///C:/Users/Luiz/Desktop/alocar3/veiculo_atrasado.html"></iframe>
+
+        <iframe src="file:///C:/Users/Luiz/Desktop/alocar3/veiculo_emtransito.html"></iframe>
+
+
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela de Dados</title>
+    <style>
+        /* Estilos para o corpo da página
+
+        /* Estilos para o corpo da página */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        /* Estilos para o cabeçalho da página */
+        h1 {
+            margin: 20px 0;
+            color: #333;
+            text-align: center;
+            font-weight: 600;
+            font-size: 28px;
+        }
+
+        /* Estilos para o formulário */
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        /* Estilos para as linhas do formulário */
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        /* Estilos para as etiquetas do formulário */
+        .form-row label {
+            width: 120px;
+            text-align: right;
+            margin-right: 10px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        /* Estilos para os campos do formulário */
+        .form-row select,
+        .form-row input[type="text"],
+        .form-row input[type="datetime-local"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            max-width: 200px;
+        }
+
+        /* Estilos para o botão "Pesquisar" */
+        #btnPesquisar {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Estilos para o botão "Pesquisar" quando hover */
+        #btnPesquisar:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilos para a tabela de dados */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        /* Estilos para as células do cabeçalho da tabela */
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 12px; /* Aumentei o padding para dar mais espaço entre os dados */
+            text-align: left;
+            font-size: 14px;
+        }
+
+        /* Estilos para o cabeçalho da tabela */
+        th {
+            background-color: #007bff; /* Cor do cabeçalho */
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Estilos para as linhas pares da tabela */
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Estilos para as linhas da tabela quando hover */
+        tr:hover {
+            background-color: #e0e0e0; /* Cor de fundo quando hover */
+        }
+
+        /* Estilos para o texto "Carros Atrasados" */
+        #carrosAtrasados {
+            font-size: 18px; /* Tamanho da fonte */
+            font-weight: bold; /* Negrito */
+            color: rgb(29, 27, 27); /* Cor do texto (vermelho) */
+            margin-bottom: 10px; /* Espaço inferior para separá-lo da tabela */
+        }
+
+
+
+/* Estilos para a tabela de dados */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px auto; /* Reduzido o margin para diminuir o espaço em torno da tabela */
+}
+
+/* Estilos para as células do cabeçalho da tabela e células de dados */
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px; /* Reduzido o padding para diminuir o espaço interno das células */
+    text-align: left;
+    
+   
+font-size: 14px;
+}
+
+/* Estilos para o cabeçalho da tabela */
+th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Estilos para as linhas pares da tabela */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Estilos para as linhas da tabela quando hover */
+tr:hover {
+    background-color: #e0e0e0;
+}
+
+/* Estilos para o texto "Carros Atrasados" */
+#carrosEmAndamento {
+    font-size: 18px;
+    
+   
+font-weight: bold;
+    color: rgb(29, 27, 27);
+    margin-bottom: 10px;
+}
+
+#currentDateTime {
+    display: none; /* Torna o conteúdo invisível e remove o espaço ocupado */
+}
+
+
+/* Estilos para o texto "Carros Atrasados" */
+#carrosEmAndamento{
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(29, 27, 27);
+    margin-bottom: 10px;
+}
+
+#currentDateTime {
+    display: none; /* Torna o conteúdo invisível e remove o espaço ocupado */
+}
+
+
+
+    </style>
+
+
+    </style>
+
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/pt-br.min.js"></script>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+        
+        <p id="currentDateTime"></p>
+
+    </form>
+   
+    <p id="carrosEmAndamento">Carros em Trânsito: 0</p>
+    <table id="dadosTable">
+        <thead>
+            <tr>
+    
+                <th>Frota</th>
+                <th>Frente</th>
+                <th>Fazenda</th>
+                <th>Status do carro</th>
+               
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+<script>
+
+
+</script>
+
+     <script>
+        // Função para atualizar a data e hora atual a cada segundo
+        function atualizarDataHoraAtual() {
+            var currentDateTime = moment().format('DD/MM/YYYY HH:mm:ss');
+            document.getElementById("currentDateTime").innerText = "Data e hora atual: " + currentDateTime;
+        }
+
+        // Chamar a função para exibir a data e hora atual ao carregar a página
+        window.onload = function() {
+            atualizarDataHoraAtual(); // Chamar a função inicialmente
+
+            // Atualizar a cada segundo (1000 milissegundos)
+            setInterval(atualizarDataHoraAtual, 1000);
+        };
+    </script>
+    
+
+
+    <script>
+        // Configurar o SDK do Firebase
+        var firebaseConfig = {
+            // Coloque suas configurações do Firebase aqui
+            apiKey: "AIzaSyB06rLp9cX9E1qDyMQ1OpF010e4zojlv9A",
+  authDomain: "alocar-3.firebaseapp.com",
+  projectId: "alocar-3",
+  storageBucket: "alocar-3.appspot.com",
+  messagingSenderId: "320701702722",
+  appId: "1:320701702722:web:30b8773dc569d6799a83db",
+  measurementId: "G-YKN1ZRG3C5"
+       
+    };
+
+
+       // Função para atualizar os dados a cada 5 segundos
+       function atualizarDadosPeriodicamente() {
+            setInterval(function () {
+                // Chame a função carregarDados() para atualizar a tabela
+                carregarDados();
+            }, 5000); // 5000 milissegundos = 5 segundos
+        }
+
+
+ firebase.initializeApp(firebaseConfig);
+// Variáveis para controle de paginação
+var linhasPorPagina = 100; // Número de linhas a serem exibidas inicialmente
+var paginaAtual = 1; // Página atual
+var totalLinhas = 0; // Número total de linhas no banco de dados
+
+// Função para carregar os dados iniciais
+function carregarDadosIniciais() {
+    var tabela = document.getElementById("dadosTable");
+    var linhas = tabela.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+    totalLinhas = linhas.length;
+
+    // Exibir apenas as linhas da página atual
+    exibirLinhasPagina(paginaAtual);
+}
+
+// Função para exibir as linhas da página especificada
+function exibirLinhasPagina(pagina) {
+    var tabela = document.getElementById("dadosTable");
+    var linhas = tabela.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+    var inicioPagina = (pagina - 1) * linhasPorPagina;
+    var fimPagina = inicioPagina + linhasPorPagina;
+
+    for (var i = 0; i < linhas.length; i++) {
+        if (i >= inicioPagina && i < fimPagina) {
+            linhas[i].style.display = "";
+        } else {
+            linhas[i].style.display = "none";
+        }
+    }
+}
+
+// Função para carregar mais linhas
+function carregarMaisLinhas() {
+    paginaAtual++; // Atualiza a página atual
+    exibirLinhasPagina(paginaAtual);
+
+    var tabela = document.getElementById("dadosTable");
+    var linhas = tabela.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+    if (linhas.length === totalLinhas) {
+        document.getElementById("btnMais").style.display = "none"; // Oculta o botão "Mais" quando todas as linhas forem carregadas
+    }
+}
+  
+  // Função para formatar a data e o horário
+  function formatarDataHora(dataHora) {
+    return moment(dataHora, "YYYY-MM-DDTHH:mm").locale('pt-br').format('DD/MM/YYYY HH:mm');
+  }
+  
+
+  // Variável para contar carros atrasados
+var carrosAtrasadosCount = 0;
+
+
+// Monitorar as mudanças no Firebase Realtime Database
+
+// Monitorar as mudanças no Firebase Realtime Database
+firebase.database().ref("filtros").on("value", function(snapshot) {
+    var dadosTable = document.getElementById("dadosTable").getElementsByTagName("tbody")[0];
+    dadosTable.innerHTML = "";
+
+    // Inicializar a contagem de carros em andamento
+    var carrosEmAndamentoCount = 0;
+
+    // Iterar através dos dados do Firebase
+    snapshot.forEach(function(childSnapshot) {
+        var childData = childSnapshot.val();
+
+        // Verificar se o veículo está em andamento (não tem dataFinal definida)
+        if (!childData.dataFinal) {
+            var row = dadosTable.insertRow();
+            row.id = childSnapshot.key;
+
+            var filtroCell = row.insertCell(0);
+            var frenteCell = row.insertCell(1);
+            var fazendaCell = row.insertCell(2);
+            var minutosEmAndamentoCell = row.insertCell(3);
+
+            filtroCell.innerText = childData.filtro;
+            frenteCell.innerText = childData.frente;
+            fazendaCell.innerText = childData.fazenda;
+
+            // Calcular os minutos em andamento
+            var dataInicialDate = new Date(childData.dataInicial);
+            var currentDate = new Date();
+            var tempoDecorridoMs = currentDate - dataInicialDate;
+            var minutosEmAndamento = Math.floor(tempoDecorridoMs / 60000); // Converter milissegundos para minutos
+
+            minutosEmAndamentoCell.innerText = minutosEmAndamento + " minutos em trânsito";
+
+            // Incrementar a contagem de carros em andamento
+            carrosEmAndamentoCount++;
+        }
+    });
+
+    // Atualizar o texto com o número de carros em andamento
+    document.getElementById("carrosEmAndamento").innerText = "Carros em Trânsito: " + carrosEmAndamentoCount;
+
+    // Classificar automaticamente por Frota após carregar os dados
+    ordenarTabelaPorFrota();
+});
+
+// Chame a função para carregar os dados iniciais
+carregarDadosIniciais();
+
+
+  // Função para falar utilizando a voz do Google
+  function speak(message) {
+      var speechSynthesis = window.speechSynthesis;
+  
+      // Verificar se a API de fala é suportada no navegador
+      if (speechSynthesis && speechSynthesis.speak) {
+          var utterance = new SpeechSynthesisUtterance(message);
+          utterance.lang = "pt-BR"; // Definir o idioma para português do Brasil
+          speechSynthesis.speak(utterance);
+      } else {
+          console.log("API de fala não suportada");
+      }
+  }
+  
+  // Função para calcular a duração entre a data inicial e a data final em horas e minutos no formato hh:mm
+  function calcularDuracao(dataInicial, dataFinal) {
+      if (dataFinal) {
+          var duracaoMs = new Date(dataFinal) - new Date(dataInicial);
+          var duracaoHoras = Math.floor(duracaoMs / 3600000); // Converter milissegundos para horas
+          var duracaoMinutos = Math.floor((duracaoMs % 3600000) / 60000); // Obter os minutos restantes
+  
+          // Adicionar zeros à esquerda se necessário
+          var horasFormatadas = duracaoHoras.toString().padStart(2, '0');
+          var minutosFormatados = duracaoMinutos.toString().padStart(2, '0');
+          
+  
+          return horasFormatadas + ":" + minutosFormatados;
+      } else {
+          return "  ";
+      }
+  }
+  
+
+// Função para ordenar a tabela por Frota em ordem crescente
+function ordenarTabelaPorFrota() {
+            var tabela = document.getElementById("dadosTable");
+            var linhas = tabela.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+            // Converte as linhas em uma matriz para facilitar a ordenação
+            var linhasArray = Array.from(linhas);
+
+            // Classifica as linhas com base no valor da coluna "Frota"
+            linhasArray.sort(function(a, b) {
+                var frotaA = a.cells[0].innerText;
+                var frotaB = b.cells[0].innerText;
+                return frotaA.localeCompare(frotaB, undefined, { numeric: true, sensitivity: 'base' });
+            });
+
+            // Remove as linhas existentes da tabela
+            for (var i = 0; i < linhasArray.length; i++) {
+                tabela.tBodies[0].appendChild(linhasArray[i]);
+            }
+        }
+
+        // Adicione um evento de clique ao botão "Ordenar por Frota"
+        var ordenarPorFrotaBtn = document.getElementById("ordenarPorFrotaBtn");
+        ordenarPorFrotaBtn.addEventListener("click", function() {
+            ordenarTabelaPorFrota();
+        });
+
+
+        function atualizarDadosPeriodicamente() {
+    // Chame a função carregarDados() inicialmente
+    carregarDados();
+
+    // Em seguida, defina o intervalo para chamar a função a cada 5 segundos
+    setInterval(function () {
+        // Atualize a tabela com os dados mais recentes
+        carregarDados();
+    }, 5000); // 5000 milissegundos = 5 segundos
+}
+
+
+      </script>
+  </body>
+  </html> 
